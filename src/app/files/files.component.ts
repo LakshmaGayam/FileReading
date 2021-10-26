@@ -56,11 +56,24 @@ export class FilesComponent implements OnInit {
     for (let i = 0; i < this.selectedFiles.length; i++) {
       if (this.selectedFiles && this.selectedFiles.length > 0) {
         this.fileType = this.selectedFiles[i].type;
-        let reader = new FileReader();
-        reader.onload = this._handleReaderLoadedSign.bind(this);
-        // this.cdr.detectChanges();
-        reader.readAsBinaryString(this.selectedFiles[i]);
-        this.upload(this.selectedFiles[i])
+        if (this.fileType === 'application/pdf') {
+          this.extensionType = 'data:application/pdf;base64,';
+        } else if (this.fileType === 'image/jpeg' || 'image/jpg') {
+          this.extensionType = 'data:image/jpeg;base64,';
+        } else if (this.fileType === 'image/png') {
+          this.extensionType = 'data:image/png;base64,';
+        } else {
+    
+        }
+        
+        //   const file:any = reader.result;
+        //   isTrue = true;
+        //   this.binaryString = btoa(file);
+        //   console.log(this.binaryString)
+        // }
+        
+          this.upload( i ,this.selectedFiles[i])
+       
       }
     }
     if (this.myInputFileVariable) {
@@ -71,26 +84,26 @@ export class FilesComponent implements OnInit {
 
   _handleReaderLoadedSign(readerEvt) {
     this.binaryString = readerEvt.target.result;
-    if (this.fileType === 'application/pdf') {
-      this.extensionType = 'data:application/pdf;base64,';
-    } else if (this.fileType === 'image/jpeg' || 'image/jpg') {
-      this.extensionType = 'data:image/jpeg;base64,';
-    } else if (this.fileType === 'image/png') {
-      this.extensionType = 'data:image/png;base64,';
-    } else {
-
-    }
+   
   }
 
-  upload(file: any) {
-    this.ELEMENT_DATA.push(
-      {
-        fileName: this.removeFileExtensions(file.name), fileSize: this.fileSizeCalculation(file.size), fileType: file.type,
-        fileLastModified: this.concetMilliSectoDate(file.lastModified),
-        fileBase64: this.extensionType + btoa(this.binaryString)
-      })
-    this.dataSource = this.ELEMENT_DATA;
-    this.fileService.setFilesList(this.dataSource);
+  upload(i:number ,file: any) {
+    const reader = new FileReader();
+        reader.onload = this._handleReaderLoadedSign.bind(this);
+        reader.readAsBinaryString(this.selectedFiles[i]);
+
+        // reader.onload = () => {
+          setTimeout(() => {
+            this.ELEMENT_DATA.push(
+              {
+                fileName: this.removeFileExtensions(file.name), fileSize: this.fileSizeCalculation(file.size), fileType: file.type,
+                fileLastModified: this.concetMilliSectoDate(file.lastModified),
+                fileBase64: this.extensionType + btoa(this.binaryString)
+              })
+            this.dataSource = this.ELEMENT_DATA;
+            this.fileService.setFilesList(this.dataSource);
+          }, 1000);
+    
 
   }
 
@@ -135,7 +148,7 @@ export class FilesComponent implements OnInit {
       const source = this.ELEMENT_DATA[i].fileBase64;
       const link = document.createElement("a");
       link.href = source;
-      link.download = `${this.ELEMENT_DATA[i]}.pdf`
+      link.download = `${this.ELEMENT_DATA[i].fileName}.pdf`
       link.click();
     }
   }
