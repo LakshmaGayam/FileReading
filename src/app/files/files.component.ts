@@ -66,12 +66,6 @@ export class FilesComponent implements OnInit {
     
         }
         
-        //   const file:any = reader.result;
-        //   isTrue = true;
-        //   this.binaryString = btoa(file);
-        //   console.log(this.binaryString)
-        // }
-        
           this.upload( i ,this.selectedFiles[i])
        
       }
@@ -144,11 +138,13 @@ export class FilesComponent implements OnInit {
 
   downLoadFile(i) {
     console.log(this.ELEMENT_DATA[i])
-    if (this.ELEMENT_DATA[i].fileType === 'application/pdf') {
+    if (this.ELEMENT_DATA[i].fileType === 'application/pdf'
+    || this.ELEMENT_DATA[i].fileType === 'image/jpeg' 
+    || this.ELEMENT_DATA[i].fileType === 'image/png') {
       const source = this.ELEMENT_DATA[i].fileBase64;
       const link = document.createElement("a");
       link.href = source;
-      link.download = `${this.ELEMENT_DATA[i].fileName}.pdf`
+      link.download = `${this.ELEMENT_DATA[i].fileName}.${this.ELEMENT_DATA[i].fileType.slice(this.ELEMENT_DATA[i].fileType.indexOf('/')).slice(1) }`
       link.click();
     }
   }
