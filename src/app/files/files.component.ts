@@ -82,6 +82,7 @@ export class FilesComponent implements OnInit {
   }
 
   upload(i:number ,file: any) {
+    var re = /(?:\.([^.]+))?$/;
     const reader = new FileReader();
         reader.onload = this._handleReaderLoadedSign.bind(this);
         reader.readAsBinaryString(this.selectedFiles[i]);
@@ -92,7 +93,7 @@ export class FilesComponent implements OnInit {
               {
                 fileName: this.removeFileExtensions(file.name),
                 fileSize: this.fileSizeCalculation(file.size),
-                fileType: file.type,
+                fileType: re.exec(file.name)[1],
                 fileLastModified: this.concetMilliSectoDate(file.lastModified),
                 fileBase64: this.extensionType + btoa(this.binaryString) ,
                 fileFullName: file.name
