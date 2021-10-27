@@ -12,7 +12,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list'
-
+import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 
 
@@ -32,7 +32,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatCardModule
     
   ]
 })

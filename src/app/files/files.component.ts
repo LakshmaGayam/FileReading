@@ -101,6 +101,7 @@ export class FilesComponent implements OnInit {
             this.dataSource = this.ELEMENT_DATA;
             this.fileService.setFilesList(this.dataSource);
           },1000 );
+          this.cdr.detectChanges();
     
 
   }

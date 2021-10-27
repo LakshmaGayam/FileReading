@@ -43,4 +43,27 @@
       /* background-color: lightgray; */
   }
   
-  
+   .mat-card-header-text {
+    width: 100%;
+    text-align: center; 
+}
+
+.borderprofile{
+    border-right:1px solid #cccccc !important;
+  }
+
+  .logouttxt{
+    color: #e03030 !important;
+  }
+
+  .viewprofilebtn{
+    width: auto !important;
+    color: #838383 !important;
+  }
+  img {
+    border-radius: 50%;
+  }
+
+  .dropdown-toggle::after {
+      display: none;
+  }
