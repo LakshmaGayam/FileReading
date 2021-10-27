@@ -18,7 +18,7 @@ export class FilesComponent implements OnInit {
   @ViewChild('fileChange') myInputFileVariable: ElementRef;
 
   ELEMENT_DATA: FileMetaData[] = [];
-  dataSource: any;
+  dataSource: any[] = [];
   filesList: FileMetaData[];
   fileType: string;
   extensionType: string;
