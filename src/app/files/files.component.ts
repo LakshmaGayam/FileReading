@@ -138,7 +138,7 @@ export class FilesComponent implements OnInit {
    */
   concetMilliSectoDate(modifiedDate: number): any {
 
-    return this.datePipe.transform(modifiedDate, 'dd-MMM-yyyy');
+    return this.datePipe.transform(modifiedDate, 'dd-MMM-yyyy h:mm a');
 
   }
 
