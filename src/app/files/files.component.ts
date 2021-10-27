@@ -63,7 +63,7 @@ export class FilesComponent implements OnInit {
         } else if (this.fileType === 'image/png') {
           this.extensionType = 'data:image/png;base64,';
         } else {
-    
+          this.extensionType = '';
         }
         
           this.upload( i ,this.selectedFiles[i])
@@ -90,13 +90,16 @@ export class FilesComponent implements OnInit {
           setTimeout(() => {
             this.ELEMENT_DATA.push(
               {
-                fileName: this.removeFileExtensions(file.name), fileSize: this.fileSizeCalculation(file.size), fileType: file.type,
+                fileName: this.removeFileExtensions(file.name),
+                fileSize: this.fileSizeCalculation(file.size),
+                fileType: file.type,
                 fileLastModified: this.concetMilliSectoDate(file.lastModified),
-                fileBase64: this.extensionType + btoa(this.binaryString)
+                fileBase64: this.extensionType + btoa(this.binaryString) ,
+                fileFullName: file.name
               })
             this.dataSource = this.ELEMENT_DATA;
             this.fileService.setFilesList(this.dataSource);
-          }, 1000);
+          },1000 );
     
 
   }
@@ -129,6 +132,9 @@ export class FilesComponent implements OnInit {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
+  /**
+   * @param modifiedDate
+   */
   concetMilliSectoDate(modifiedDate: number): any {
 
     return this.datePipe.transform(modifiedDate, 'dd-MMM-yyyy');
@@ -146,10 +152,32 @@ export class FilesComponent implements OnInit {
       link.href = source;
       link.download = `${this.ELEMENT_DATA[i].fileName}.${this.ELEMENT_DATA[i].fileType.slice(this.ELEMENT_DATA[i].fileType.indexOf('/')).slice(1) }`
       link.click();
+    } else  {
+      this.saveData(this.ELEMENT_DATA[i].fileBase64 , this.ELEMENT_DATA[i].fileFullName , '.docx');
     }
   }
 
+  base64toBlob(byteString) {
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ia], { type: "octet/stream" });
+  }
 
-
-
+  saveData(fileBase64:string , fileName: string , extensionType:string) {
+    console.log("Here")
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    // a.style = "display: none";
+    const tempBase64 =  fileBase64.replace('data:image/jpeg;base64,' , '')
+      var json = atob(tempBase64),
+        blob = this.base64toBlob(json),
+        url = window.URL.createObjectURL(blob);
+      a.href = url;
+      a.download = fileName;
+      a.click();
+      window.URL.revokeObjectURL(url);
+  }
+    
 }
