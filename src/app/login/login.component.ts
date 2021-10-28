@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -8,9 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  loginForm:FormGroup;
-  constructor(private formBuilder:FormBuilder ,
+  submitted = false;
+  loginForm: FormGroup;
+  constructor(private formBuilder: FormBuilder,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -19,17 +19,17 @@ export class LoginComponent implements OnInit {
 
   buildForm() {
     this.loginForm = this.formBuilder.group({
-      username:['lakshma'],
-      password:['12345'],
+      username: ['lakshma', [Validators.required]],
+      password: ['12345'],
     })
   }
 
   submit() {
-    if(!this.loginForm.controls.username.value) {
-      alert('Please Enter User Name');
+    this.submitted = true;
+    if (!this.loginForm.valid) {
       return;
     }
-      localStorage.setItem('user' , atob(this.loginForm.controls.username.value))
-      this.router.navigate(['/home'])
+    localStorage.setItem('user', atob(this.loginForm.controls.username.value))
+    this.router.navigate(['/home'])
   }
 }
