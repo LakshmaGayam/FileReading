@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    if (this.loginForm.controls.username.value !== 'lakshma' &&
+    if (this.loginForm.controls.username.value !== 'lakshma' ||
       this.loginForm.controls.password.value !== '12345') {
       this.openSnackBar();
       return;
