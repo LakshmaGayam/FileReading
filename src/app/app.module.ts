@@ -13,13 +13,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { SearchfilesComponent } from './searchfiles/searchfiles.component';
 import { FilesService } from './services/files.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FilesComponent,
-    SearchfilesComponent
+    SearchfilesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

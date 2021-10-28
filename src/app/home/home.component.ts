@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,8 @@ export class HomeComponent implements OnInit {
 
   routerLink = "/filesSearch"
   tabIndex;
-  constructor() { }
+  constructor(private router:Router ,
+    private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
   }
@@ -19,4 +21,9 @@ export class HomeComponent implements OnInit {
     this.tabIndex = event.index;
   }
 
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate(['/'] ,{relativeTo: this.activatedRoute});
+  }
 }
