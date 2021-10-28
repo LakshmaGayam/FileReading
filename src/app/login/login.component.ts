@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -11,7 +12,8 @@ export class LoginComponent implements OnInit {
   submitted = false;
   loginForm: FormGroup;
   constructor(private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.buildForm();
@@ -19,8 +21,8 @@ export class LoginComponent implements OnInit {
 
   buildForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['lakshma', [Validators.required]],
-      password: ['12345'],
+      username: ['', [Validators.required]],
+      password: [''],
     })
   }
 
@@ -29,7 +31,19 @@ export class LoginComponent implements OnInit {
     if (!this.loginForm.valid) {
       return;
     }
-    localStorage.setItem('user', atob(this.loginForm.controls.username.value))
-    this.router.navigate(['/home'])
+    if (this.loginForm.controls.username.value !== 'lakshma' &&
+      this.loginForm.controls.password.value !== '12345') {
+      this.openSnackBar();
+      return;
+    }
+    localStorage.setItem('user', atob(this.loginForm.controls.username.value));
+    this.router.navigate(['/home']);
+  }
+
+  openSnackBar() {
+    this._snackBar.open('Invalid Details!!', 'Dismiss', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
   }
 }

@@ -14,6 +14,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list'
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 
@@ -33,7 +34,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatToolbarModule,
     MatTooltipModule,
     MatSidenavModule,
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
     
   ]
 })
