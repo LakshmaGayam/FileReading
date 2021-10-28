@@ -13,7 +13,7 @@ constructor(private router:Router) {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean{
-      const currentUser = localStorage.getItem('user')
+      const currentUser = btoa(localStorage.getItem('user'));
       if (currentUser) {
         // authorised so return true
         return true;
