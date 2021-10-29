@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -8,12 +9,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  routerLink = "/filesSearch"
-  tabIndex;
+  routerLink = "/filesSearch";
+  tabIndex = 0;
   constructor(private router:Router ,
-    private activatedRoute:ActivatedRoute) { }
+    private activatedRoute:ActivatedRoute ,
+    private titleService: Title
+    ) { }
 
   ngOnInit(): void {
+    this.titleService.setTitle('Login')
+
   }
 
   changeTab(event) {
@@ -24,6 +29,7 @@ export class HomeComponent implements OnInit {
 
   logout() {
     localStorage.clear();
+    this.titleService.setTitle('Login')
     this.router.navigate(['/'] ,{relativeTo: this.activatedRoute});
     // window.location.reload();
 

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Title } from '@angular/platform-browser';
 import { FileMetaData } from '../Models/FileMetaData';
 import { FilesService } from '../services/files.service';
 
@@ -17,10 +18,12 @@ export class SearchfilesComponent implements OnInit {
   tempDataSource = [];
   constructor(private fb: FormBuilder,
     private fileService: FilesService,
-    private cdr: ChangeDetectorRef) { }
+    private cdr: ChangeDetectorRef ,
+    private titleService: Title) { }
 
   ngOnInit(): void {
     this.buildForm();
+    this.titleService.setTitle('Search Files')
     if (this.fileService.getFilesList()) {
       this.tempDataSource = this.fileService.getFilesList();
       this.dataSource.data = this.tempDataSource;

@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { FileMetaData } from '../Models/FileMetaData';
 import { FilesService } from '../services/files.service';
 
@@ -26,11 +27,15 @@ export class FilesComponent implements OnInit {
 
   constructor(private datePipe: DatePipe,
     private fileService: FilesService,
-    private cdr: ChangeDetectorRef) {
+    private cdr: ChangeDetectorRef ,
+    private titleService: Title) {
   }
 
 
   ngOnInit(): void {
+    if(this.screenType === 'upload') {
+      this.titleService.setTitle('Upload -Download')
+    }
     this.filesList = [];
   }
 
