@@ -7,3 +7,38 @@ mat-cell:nth-child(5),
 mat-header-cell:nth-child(5) {
     flex: 0 0 10%;
 }
+
+.dropzone {
+    height: 200px;
+    display: table;
+    width: 100%;
+    background-color: #eee;
+    border: dotted 1px #aaa;
+}
+
+.text-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .textLink{
+    background-color: #f45e61;
+    color:#fff;
+    padding:10px;
+    border-radius:5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  .textLink::before{
+    content: "\f093";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      color: #fff;
+      font-size: large;
+      margin-right: 10px;
+  }
+
+  .centered {
+    font-family: sans-serif;
+    font-size: 1.3em;
+    text-align:center;
+  }

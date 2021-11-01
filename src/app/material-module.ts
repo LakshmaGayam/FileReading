@@ -15,6 +15,7 @@ import {MatListModule} from '@angular/material/list'
 import {MatCardModule} from '@angular/material/card';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 
@@ -35,8 +36,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatTooltipModule,
     MatSidenavModule,
     MatCardModule,
-    MatSnackBarModule
-    
+    MatSnackBarModule,
+    MatDatepickerModule
+
   ]
 })
 export class MaterialModule {}

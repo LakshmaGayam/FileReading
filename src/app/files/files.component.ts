@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { FileMetaData } from '../Models/FileMetaData';
 import { FilesService } from '../services/files.service';
@@ -18,6 +19,7 @@ export class FilesComponent implements OnInit {
   selectedFiles = [];
   @ViewChild('fileChange') myInputFileVariable: ElementRef;
 
+  fileForm:FormGroup
   ELEMENT_DATA: FileMetaData[] = [];
   dataSource: any[] = [];
   filesList: FileMetaData[];
@@ -28,20 +30,30 @@ export class FilesComponent implements OnInit {
   constructor(private datePipe: DatePipe,
     private fileService: FilesService,
     private cdr: ChangeDetectorRef ,
-    private titleService: Title) {
+    private titleService: Title ,
+    private fb:FormBuilder) {
   }
 
 
   ngOnInit(): void {
+    this.buildForm();
     if(this.screenType === 'upload') {
       this.titleService.setTitle('Upload -Download')
     }
     this.filesList = [];
   }
 
+
+  buildForm() {
+    this.fileForm =this.fb.group({
+      fileName: [],
+      fileDate:[]
+    })
+  }
+
   /**
-   * 
-   * @param screen 
+   *
+   * @param screen
    */
   showScreenType(screen: string) {
     if (screen === 'upload') {
@@ -52,8 +64,8 @@ export class FilesComponent implements OnInit {
   }
 
   /**
-   * 
-   * @param event 
+   *
+   * @param event
    */
   uploadFile(event: any) {
     this.selectedFiles = event.target.files;
@@ -70,9 +82,9 @@ export class FilesComponent implements OnInit {
         } else {
           this.extensionType = '';
         }
-        
+
           this.upload( i ,this.selectedFiles[i])
-       
+
       }
     }
     if (this.myInputFileVariable) {
@@ -83,7 +95,7 @@ export class FilesComponent implements OnInit {
 
   _handleReaderLoadedSign(readerEvt) {
     this.binaryString = readerEvt.target.result;
-   
+
   }
 
   upload(i:number ,file: any) {
@@ -107,35 +119,34 @@ export class FilesComponent implements OnInit {
             this.fileService.setFilesList(this.dataSource);
           },1000 );
           this.cdr.detectChanges();
-    
+
 
   }
 
   /**
-   * 
-   * @param fileName 
-   * @returns fileName 
+   *
+   * @param fileName
+   * @returns fileName
    */
   removeFileExtensions(fileName: string): string {
     return fileName.split('.').slice(0, -1).join('.');
   }
 
   /**
-   * 
-   * @param bytes 
-   * @param decimals 
-   * @returns 
+   *
+   * @param bytes
+   * @param decimals
+   * @returns
    */
 
   fileSizeCalculation(bytes: any, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
-
+    if (bytes === 0) {
+      return '0 Bytes';
+    }
     const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
+    const dm = decimals <= 0 ? 0 : decimals || 2;
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
 
@@ -152,7 +163,7 @@ export class FilesComponent implements OnInit {
   downLoadFile(i) {
     console.log(this.ELEMENT_DATA[i])
     if (this.ELEMENT_DATA[i].fileType === 'application/pdf'
-    || this.ELEMENT_DATA[i].fileType === 'image/jpeg' 
+    || this.ELEMENT_DATA[i].fileType === 'image/jpeg'
     || this.ELEMENT_DATA[i].fileType === 'image/png') {
       const source = this.ELEMENT_DATA[i].fileBase64;
       const link = document.createElement("a");
@@ -186,5 +197,10 @@ export class FilesComponent implements OnInit {
       a.click();
       window.URL.revokeObjectURL(url);
   }
-    
+
+
+  onFileDropped(event) {
+
+  }
+
 }

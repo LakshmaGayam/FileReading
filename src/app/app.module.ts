@@ -15,6 +15,7 @@ import { SearchfilesComponent } from './searchfiles/searchfiles.component';
 import { FilesService } from './services/files.service';
 import { LoginComponent } from './login/login.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { DraganddropDirective } from './Directives/draganddrop.directive';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     HomeComponent,
     FilesComponent,
     SearchfilesComponent,
-    LoginComponent
+    LoginComponent,
+    DraganddropDirective
   ],
   imports: [
     BrowserModule,

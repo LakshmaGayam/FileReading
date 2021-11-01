@@ -1,110 +1,132 @@
 <div class="row" style="margin: 0px;">
-    <div align="center" class="col-md-6 col-xl-6">
-        <button mat-button title="Upload File" (click)="showScreenType('upload')" color="accent">Upload</button>
-    </div>
-    <div align="center" class="col-md-6 col-xl-6">
-        <button mat-button title="downLoad File" (click)="showScreenType('downLoad')" color="accent">DownLoad</button>
-    </div>
+  <div align="center" class="col-md-6 col-xl-6">
+    <button mat-button title="Upload File" (click)="showScreenType('upload')" color="accent">Upload</button>
+  </div>
+  <div align="center" class="col-md-6 col-xl-6">
+    <button mat-button title="downLoad File" (click)="showScreenType('downLoad')" color="accent">DownLoad</button>
+  </div>
 
 </div>
 <div class="row" style="margin: 0px;">
-<div  *ngIf="screenType === 'upload'" class="col-md-6 col-xl-12">
+  <div *ngIf="screenType === 'upload'" class="col-md-6 col-xl-12">
     <!-- <div  class="col-xl-12"> -->
-    <form>
-        <input  type="file" #fileChange (change)="uploadFile($event)" multiple >
+    <div >
+      <form>
+        <input type="file" name="file" appDraganddrop id="file" #fileChange (change)="uploadFile($event)" multiple>
+      </form>
+    </div>
+    <br/>
+    <!-- <div class="row">
+      <form [formGroup]="fileForm">
+      <div class="col-md-3 col-xl-3 col-xs-2">
+        <mat-form-field appearance="outline">
+          <mat-label>UserName</mat-label>
+          <input matInput formControlName="fileName" placeholder="Uploaded UserName">
+        </mat-form-field>
+
+      </div>
+      <div class="col-md-3 col-xl-3 col-xs-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Choose a date</mat-label>
+          <input matInput formControlName="fileDate" [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+      </div>
     </form>
-    <table width="100%" mat-table [dataSource]="dataSource" >
-      
-        
+    </div> -->
+    <table width="100%" mat-table [dataSource]="dataSource">
 
-        <ng-container matColumnDef="File Name">
-          <th mat-header-cell *matHeaderCellDef>File Name </th>
-          <td mat-cell *matCellDef="let element"> {{element.fileName}} </td>
-        </ng-container>
-      
-        
-        <ng-container matColumnDef="File Type">
-          <th mat-header-cell *matHeaderCellDef> File Type </th>
-          <td mat-cell *matCellDef="let element"> {{element.fileType}} </td>
-        </ng-container>
-      
-     
-        <ng-container matColumnDef="Meta Uplaoded">
-          <th mat-header-cell *matHeaderCellDef> Last Modified </th>
-          <td mat-cell *matCellDef="let element"> {{element.fileLastModified}} </td>
-        </ng-container>
-      
-       
-        <ng-container matColumnDef="Size">
-          <th mat-header-cell *matHeaderCellDef> Size </th>
-          <td mat-cell *matCellDef="let element"> {{element.fileSize}} </td>
-        </ng-container>
-      
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <ng-container matColumnDef="File Name">
+        <th mat-header-cell *matHeaderCellDef>File Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.fileName}} </td>
+      </ng-container>
 
-      </table>
 
-      <table>
-        <tr *ngIf="dataSource && dataSource.length < 1">
-          <td colspan="2">
-            <span align="center">No Files Found...!</span>
-          </td>
-        </tr>
-      </table>
-<!-- </div> -->
-      
-</div>
+      <ng-container matColumnDef="File Type">
+        <th mat-header-cell *matHeaderCellDef> File Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.fileType}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Meta Uplaoded">
+        <th mat-header-cell *matHeaderCellDef> Last Modified </th>
+        <td mat-cell *matCellDef="let element"> {{element.fileLastModified}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Size">
+        <th mat-header-cell *matHeaderCellDef> Size </th>
+        <td mat-cell *matCellDef="let element"> {{element.fileSize}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <table>
+      <tr *ngIf="dataSource && dataSource.length < 1">
+        <td colspan="2">
+          <span align="center">No Files Found...!</span>
+        </td>
+      </tr>
+    </table>
+    <!-- </div> -->
+
+  </div>
 </div>
 <div *ngIf="screenType === 'downLoad'" class="col-md-6 col-xl-12">
-    <div >
-        <table width="100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <div>
+    <table width="100%" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-            <!--- Note that these columns can be defined in any order.
+      <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
-          
-           
-            <ng-container matColumnDef="File Name">
-              <th mat-header-cell *matHeaderCellDef>File Name </th>
-              <td mat-cell *matCellDef="let element"> {{element.fileName}} </td>
-            </ng-container>
-          
-            
-            <ng-container matColumnDef="File Type">
-              <th mat-header-cell *matHeaderCellDef> File Type </th>
-              <td mat-cell *matCellDef="let element"> {{element.fileType}} </td>
-            </ng-container>
-          
-            
-            <ng-container matColumnDef="Meta Uplaoded">
-              <th mat-header-cell *matHeaderCellDef> Lat Modified </th>
-              <td mat-cell *matCellDef="let element"> {{element.fileLastModified}} </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="Size">
-              <th mat-header-cell *matHeaderCellDef> Size </th>
-              <td mat-cell *matCellDef="let element"> {{element.fileSize}} </td>
-            </ng-container>
 
-            <ng-container matColumnDef="DownLoad">
-                <th mat-header-cell *matHeaderCellDef>DownLoad  </th>
-                <td mat-cell *matCellDef="let element ; let i = index"> 
-                    <button (click)="downLoadFile(i)" mat-mini-fab color="accent" aria-label="Example icon button with a plus one icon">
-                        <mat-icon title="download">file_copy</mat-icon>
-                      </button>
-                     </td>
-              </ng-container>
-          
-            <tr mat-header-row *matHeaderRowDef="displayedDownLoadColums"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedDownLoadColums;"></tr>
-          </table>
-          <table>
-            <tr *ngIf="dataSource && dataSource.length < 1">
-              <td colspan="2">
-                <span align="center">No Files Found...!</span>
-              </td>
-            </tr>
-          </table>
-</div>
-      
+
+      <ng-container matColumnDef="File Name">
+        <th mat-header-cell *matHeaderCellDef>File Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.fileName}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="File Type">
+        <th mat-header-cell *matHeaderCellDef> File Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.fileType}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Meta Uplaoded">
+        <th mat-header-cell *matHeaderCellDef> Lat Modified </th>
+        <td mat-cell *matCellDef="let element"> {{element.fileLastModified}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Size">
+        <th mat-header-cell *matHeaderCellDef> Size </th>
+        <td mat-cell *matCellDef="let element"> {{element.fileSize}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="DownLoad">
+        <th mat-header-cell *matHeaderCellDef>DownLoad </th>
+        <td mat-cell *matCellDef="let element ; let i = index">
+          <button (click)="downLoadFile(i)" mat-mini-fab color="seagreen"
+            aria-label="Example icon button with a plus one icon">
+            <mat-icon title="download" >cloud_download</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedDownLoadColums"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedDownLoadColums;"></tr>
+    </table>
+    <table>
+      <tr *ngIf="dataSource && dataSource.length < 1">
+        <td colspan="2">
+          <span align="center">No Files Found...!</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+
 </div>
